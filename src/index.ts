@@ -1,4 +1,5 @@
 const INIT_ACTION = "@ngrx/store/init";
+const REPLACE_ACTION = "@ngrx/store/replace-reducer";
 const detectDate = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;
 
 //correctly parse dates from local storage
@@ -124,7 +125,7 @@ export const localStorageSync = (keys : any[], rehydrate : boolean = false, stor
          Handle case where state is rehydrated AND initial state is supplied.
          Any additional state supplied will override rehydrated state for the given key.
          */
-        if(action.type === INIT_ACTION && rehydratedState){
+        if((action.type === INIT_ACTION || action.type === REPLACE_ACTION) && rehydratedState){
             state = Object.assign({}, state, rehydratedState);
         }
         const nextState = reducer(state, action);
